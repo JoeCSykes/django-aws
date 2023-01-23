@@ -18,3 +18,5 @@ RUN pip install --no-cache-dir -r /requirements.txt
 # Moving application files
 WORKDIR /app
 COPY . /app
+
+CMD [ "python3", "create_admin.py"]
