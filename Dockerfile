@@ -17,9 +17,10 @@ RUN pip install gunicorn==20.1.0
 # Install requirements.txt
 COPY requirements.txt /
 RUN pip install --no-cache-dir -r /requirements.txt
+RUN pip install make
 
 # Moving application files
 WORKDIR /app
 COPY . /app
 
-CMD ["/bin/bash","-c","./startup_script.sh"]
+CMD [ "/usr/bin/make", "dockerRunserver"]
