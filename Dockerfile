@@ -8,8 +8,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install pip and gunicorn web server
-RUN add-apt-repository ppa:deadsnakes/ppa -y && apt update -y
-RUN apt-get install python3-dev default-libmysqlclient-dev build-essential
 RUN pip install mysqlclient
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install gunicorn==20.1.0
