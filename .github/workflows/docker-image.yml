@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: ['release']
+    branches: ['release-*']
   workflow_dispatch:
 
 env:
@@ -27,8 +27,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@master
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@master
         with:
+          image: AnswerConsulting/AnswerKing-Python
+          context: .
           push: true
-          tags: user/app:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
